@@ -47,8 +47,32 @@
             {% endif %}
         </nav>
 </div>
-<div class="container mt-4">{% block content %}
-{% endblock content %}</div>
+
+<div class="container mt-4">
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <p class="alert alert-danger alert-dismissible fade show" role="alert">{{ message|safe }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </p>
+            {% else %}
+                <p class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message|safe }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </p>
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+
+    {% block content %}
+    {% endblock content %}
+
+</div>
 
 <!-- Optional JavaScript -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

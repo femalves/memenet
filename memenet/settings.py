@@ -25,7 +25,7 @@ SECRET_KEY = 'yedg4s+j8g7oj)g0+1%%id-5+ql%k6v%a)eb05c@axlzbs+w9_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mysite.com']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'social_django',
 
 ]
 
@@ -70,6 +71,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'memenet.wsgi.application'
 
@@ -103,6 +105,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+    'social_core.backends.google.GoogleOAuth2',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '985889292341-te4p73imtu28nrefivrvugu3a1gooa9k.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'g6jUFWqZ66m8wqwnQDAQ9ZUO'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -127,3 +137,8 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

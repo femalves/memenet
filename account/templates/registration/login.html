@@ -13,12 +13,18 @@
             {% if form.errors %}
                 <p class="alert alert-danger alert-dismissible fade show" role="alert">Your username and password didn't match. Please try again. </p>
             {% endif %}
+
+
             <form action="{% url 'login' %}" method="post">
                 {{form.username|as_crispy_field}}
                 {{form.password|as_crispy_field}}
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ next }}"/>
                 <p><input type="submit" class="btn btn-success btn-block" value="Login"></p>
+
+                <p class="btn btn-danger btn-block"><a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a></p>
+                <p><a href="{% url "password_reset" %}">Forgot password?</a></p>
+                <p><a href="{% url "register" %}">Create account</a></p>
             </form>
         </div>
 
