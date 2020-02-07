@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Pin a meme{% endblock %}
+
+{% block content %}
+  <h1>Pin a meme</h1>
+  <img src="{{ request.GET.url }}" class="image-preview">
+  <form action="." method="post">
+    {{ form.title | as_crispy_field}}
+    {{ form.description| as_crispy_field}}
+    {{ form.url| as_crispy_field}}
+    {% csrf_token %}
+    <input type="submit" class="btn btn-success btn-block" value="Pin it">
+  </form>
+{% endblock %}

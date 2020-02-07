@@ -24,8 +24,9 @@ SECRET_KEY = 'yedg4s+j8g7oj)g0+1%%id-5+ql%k6v%a)eb05c@axlzbs+w9_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+THUMBNAIL_DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mysite.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'mysite.com', '3dcc69d9.ngrok.io']
 
 
 # Application definition
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'social_django',
+    'images.apps.ImagesConfig',
+    'sorl.thumbnail',
 
 ]
 
