@@ -19,8 +19,6 @@
 </head>
 <body>
 <div id="header">
-
-
         <nav class="navbar navbar-expand-lg navbar-light bg-success">
             <a class="navbar-brand text-light" href="#"><i class="fas fa-thumbtack"></i></a>
             {% if request.user.is_authenticated %}
@@ -33,7 +31,7 @@
                             <a class="nav-link" href="{% url 'images:list' %}">Memes</a>
                         </li>
                         <li {% if section == 'people' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                            <a class="nav-link" href="{% url 'dashboard' %}">People</a>
+                            <a class="nav-link" href="{% url 'user_list' %}">People</a>
                         </li>
                         <span class="navbar-text">
                             Hello, {{ request.user.username}}!
