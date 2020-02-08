@@ -1,0 +1,19 @@
+{% load thumbnail %}
+
+{% for image in images %}
+
+  <div class="col-6 col-md-4 col-lg-3 mb-4">
+      <div class="card mx-auto text-center">
+        <a href="{{ image.get_absolute_url }}">
+            {% thumbnail image.image "300x300" crop="100%" as im %}
+                <a href="{{ image.get_absolute_url }}"></a>
+                    <img class="card-img-top" src="{{ im.url }}" alt="{{im.title}}">
+                </a>
+            {% endthumbnail %}
+        {% comment %} <div class="card-body">
+          <p class="card-title"><a href="{{ image.get_absolute_url }}">{{ image.title|truncatechars:25 }}</a></p>
+        </div> {% endcomment %}
+      </div>
+    </div>
+{% endfor %}
+

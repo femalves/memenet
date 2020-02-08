@@ -1,36 +1,102 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block title %}{{image.title}}
-{% endblock title %}
+{% block title %}{{ image.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{image.title}}</h1>
 
-    {% thumbnail image.image "300" as im %}
-        <a href="{{ image.image.url }}">
-            <img src="{{ im.url }}" class="image-detail">
-        </a>
-    {% endthumbnail %}
-
+ <div class="card mx-auto" style="width: 20rem;">
+  {% thumbnail image.image "300" as im %}
+    <a href="{{ image.image.url }}">
+      <img src="{{ im.url }}" class="card-img-top">
+    </a>
+  {% endthumbnail %}
+  <div class="card-body">
+    <h5 class="card-title">{{ image.title }}</h5>
+    <p class="card-text">{{ image.description|linebreaks }}</p>
     {% with total_likes=image.users_like.count users_like=image.users_like.all %}
-        <div class="image-info">
-            <div>
-                <span class="count">
-                    {{ total_likes }} like{{ total_likes|pluralize }}
-                </span>
-            </div>
+    <div class="image-info">
+      <div>
+        <span class="btn btn-outline-secondary count">
+         <span class="total">{{ total_likes }}</span>
+         like{{ total_likes|pluralize }}
+        </span>
+        <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="btn btn-success like button">
+          {% if request.user not in users_like %}
+            Like
+          {% else %}
+            Unlike
+          {% endif %}
+        </a>
+      </div>
+    </div>
+    <div class="image-likes">
+      {% for user in image.users_like.all %}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item text-secondary">
+            <img src="{{ user.profile.photo.url }}"> <span>{{ user.first_name }} likes this meme.</span></li>
+        </ul>
+      {% endfor %}
+    </div>
+  {% endwith %}
+  </div>
+</div>
+  <h1></h1>
 
-            {{ image.description|linebreaks }}
+
+
+
+  {% comment %} {% with total_likes=image.users_like.count users_like=image.users_like.all %}
+    <div class="image-info">
+      <div>
+        <span class="btn btn-outline-secondary count">
+         <span class="total">{{ total_likes }}</span>
+         like{{ total_likes|pluralize }}
+        </span>
+        <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="btn btn-success like button">
+          {% if request.user not in users_like %}
+            Like
+          {% else %}
+            Unlike
+          {% endif %}
+        </a>
+      </div>
+    </div>
+    <div class="image-likes">
+      {% for user in image.users_like.all %}
+        <div>
+          <img src="{{ user.profile.photo.url }}">
+          <p>{{ user.first_name }}</p>
         </div>
-        <div class="image-likes">
-        {% for user in image.users_like.all %}
-            <div>
-                <img src="{{ user.profile.photo.url }}" alt="">
-                <p>{{ user.first_name }} </p>
-            </div>
-        {% empty %}
-            This image doesn't have any likes yet.
-        {% endfor %}
-        </div>
-    {% endwith %}
-{% endblock content %}
+      {% empty %}
+        Nobody likes this image yet.
+      {% endfor %}
+    </div>
+  {% endwith %} {% endcomment %}
+{% endblock %}
+
+{% block domready %}
+  $('a.like').click(function(e){
+    e.preventDefault();
+    $.post('{% url "images:like" %}',
+      {
+        id: $(this).data('id'),
+        action: $(this).data('action')
+      },
+      function(data){
+        if (data['status'] == 'ok')
+        {
+          var previous_action = $('a.like').data('action');
+
+          // toggle data-action
+          $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+          // toggle link text
+          $('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
+
+          // update total likes
+          var previous_likes = parseInt($('span.count .total').text());
+          $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+        }
+      }
+    );
+  });
+{% endblock %}

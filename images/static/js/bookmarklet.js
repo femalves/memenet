@@ -1,6 +1,6 @@
 (function() {
   var jquery_version = "3.3.1";
-  var site_url = "https://3dcc69d9.ngrok.io/";
+  var site_url = "https://586dcb63.ngrok.io/";
   var static_url = site_url + "static/";
   var min_width = 20;
   var min_height = 20;
@@ -29,17 +29,21 @@
     });
 
     // find images and display them
-    jQuery.each(jQuery('img[src$="jpg"]'), function(index, image) {
-      if (
-        jQuery(image).width() >= min_width &&
-        jQuery(image).height() >= min_height
-      ) {
-        image_url = jQuery(image).attr("src");
-        jQuery("#bookmarklet .images").append(
-          '<a href="#"><img src="' + image_url + '" /></a>'
-        );
+
+    jQuery.each(
+      jQuery('img[src$="jpg"], img[src$="jpeg"], img[src$="png"]'),
+      function(index, image) {
+        if (
+          jQuery(image).width() >= min_width &&
+          jQuery(image).height() >= min_height
+        ) {
+          image_url = jQuery(image).attr("src");
+          jQuery("#bookmarklet .images").append(
+            '<a href="#"><img src="' + image_url + '" /></a>'
+          );
+        }
       }
-    });
+    );
 
     // when an image is selected open URL with it
     jQuery("#bookmarklet .images a").click(function(e) {
