@@ -6,20 +6,22 @@
 
 {% block content %}
 
-<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">People</h1>
+<h2 class="font-weight-light text-center text-lg-left mt-4 mb-0" style="color: #7B89AA;">People</h2>
+    <hr class="mt-2 mb-5">
 
-<div class="people-list">
+<div class="row">
     {% for user in users %}
-        <div class="user">
-        <a href="{{ user.get_absolute_url}}">
-            {% thumbnail user.profile.photo "100x100" crop="100%" as im %}
-            <img src="{{ im.url }}" class="rounded-circle">
-            {% endthumbnail %}
+    <div class="card col-6 col-md-4 col-lg-2" style="width: 18rem; border: 0px;">
+        <a href="{{user.get_absolute_url }}">
+        {% thumbnail user.profile.photo "100x100" crop="100%" as im %}
+        <img src="{{ im.url }}" class="card-img-top rounded-circle" alt="Card image cap">
+        {% endthumbnail %}
         </a>
-        <div class="info">
-        <a href="{{user.get_absolute_url }}" class="title">{{ user.get_full_name }}</a>
+        <div class="card-body">
+            <h5 class="card-title text-center"><a href="{{user.get_absolute_url }}" style="text-decoration: none; color: #28A745;">{{ user.get_full_name }}</a></h5>
         </div>
-        </div>
+    </div>
     {% endfor %}
 </div>
 {% endblock content %}
+

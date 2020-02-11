@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}Edit account
+{% block title %} Edit account
 {% endblock title %}
 
 {% block content %}
 
-    <h1>Edit account</h1>
+    <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0" style="color: #7B89AA;">Edit account</h2>
+    <hr class="mt-2 mb-5">
+    <div class="col-md-6 mx-auto">
     <form action="." method="post" enctype="multipart/form-data">
        {{ user_form.first_name| as_crispy_field}}
        {{ user_form.last_name| as_crispy_field}}
@@ -17,4 +19,5 @@
         {% csrf_token %}
         <p><input type="submit" class="btn btn-success btn-block" value="Save changes"></p>
     </form>
+    </div>
 {% endblock content %}

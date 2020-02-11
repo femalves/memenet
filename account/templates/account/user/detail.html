@@ -4,28 +4,65 @@
 {% block title %}{{ user.get_full_name }}{% endblock %}
 
 {% block content %}
-  <h1>{{ user.get_full_name }}</h1>
-  <div class="profile-info">
-    {% thumbnail user.profile.photo "180x180" crop="100%" as im %}
-      <img src="{{ im.url }}" class="user-detail">
-    {% endthumbnail %}
+
+  <div>
+    <h2 class="font-weight-light text-lg float-left" style="color: #7B89AA;">
+      {{ user.get_full_name }}
+    </h2>
+    {% with total_followers=user.followers.count %}
+        <span class="count badge badge-pill badge-secondary ml-3 mt-3">
+          <span class="total">{{ total_followers }}</span> follower{{ total_followers|pluralize }}
+        </span>
+      {% endwith %}
   </div>
-  {% with total_followers=user.followers.count %}
-    <span class="count">
-      <span class="total">{{ total_followers }}</span>
-      follower{{ total_followers|pluralize }}
-    </span>
-    <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button btn btn-success">
-      {% if request.user not in user.followers.all %}
-        Follow
-      {% else %}
-        Unfollow
-      {% endif %}
-    </a>
-    <div id="image-list" class="image-container">
-      {% include "images/image/list_ajax.html" with images=user.images_created.all %}
+
+  <hr class="mt-2 mb-5">
+  <div class="row">
+    <div class="profile-info col-md-3">
+      <div class="card" style="width: 10rem; border: 0px;">
+        <a href="{{user.get_absolute_url }}">
+        {% thumbnail user.profile.photo "80x80" crop="100%" as im %}
+        <img src="{{ im.url }}" class="card-img-top rounded-circle" alt="Card image cap">
+        {% endthumbnail %}
+        </a>
+        <div class="card-body">
+            <h5 class="card-title text-center"><a href="{{user.get_absolute_url }}" style="text-decoration: none; color: #28A745;">{{ user.get_full_name }}</a></h5>
+            <span>
+              <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow btn btn-outline-success btn-sm btn-block float-right">
+                {% if request.user not in user.followers.all %}
+                  Follow
+                {% else %}
+                  Unfollow
+                {% endif %}
+              </a>
+            </span>
+        </div>
     </div>
-  {% endwith %}
+
+
+      {% comment %} {% with total_followers=user.followers.count %}
+        <span class="count">
+          <span class="total">{{ total_followers }}</span>
+          follower{{ total_followers|pluralize }}
+        </span>
+        <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow button btn btn-success">
+          {% if request.user not in user.followers.all %}
+            Follow
+          {% else %}
+            Unfollow
+          {% endif %}
+        </a>
+      {% endwith %}
+    {% endcomment %}
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        {% include "images/image/list_ajax.html" with images=user.images_created.all %}
+      </div>
+
+    </div>
+  </div>
+
 {% endblock %}
 
 {% block domready %}

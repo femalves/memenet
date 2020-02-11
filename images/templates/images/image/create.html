@@ -1,15 +1,25 @@
 {% extends "base.html" %}
+
 {% load crispy_forms_tags %}
+{% load thumbnail %}
 {% block title %}Pin a meme{% endblock %}
 
 {% block content %}
-  <h1>Pin a meme</h1>
-  <img src="{{ request.GET.url }}" class="image-preview">
-  <form action="." method="post">
-    {{ form.title | as_crispy_field}}
-    {{ form.description| as_crispy_field}}
-    {{ form.url| as_crispy_field}}
-    {% csrf_token %}
-    <input type="submit" class="btn btn-success btn-block" value="Pin it">
-  </form>
+  <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0" style="color: #7B89AA;">Pin a meme</h2>
+    <hr class="mt-2 mb-5">
+
+  {% thumbnail image.image "300x300" crop="100%" as im %}
+
+      <img class="image-preview" src="{{ request.GET.url }}">
+
+  {% endthumbnail %}
+  <div class="col-md-6 mx-auto">
+    <form action="." method="post">
+      {{ form.title | as_crispy_field}}
+      {{ form.description| as_crispy_field}}
+      {{ form.url| as_crispy_field}}
+      {% csrf_token %}
+      <input type="submit" class="btn btn-success btn-block" value="Pin it">
+    </form>
+  </div>
 {% endblock %}

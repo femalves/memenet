@@ -1,10 +1,9 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block title %}Images bookmarked{% endblock %}
 
 {% block content %}
-  <h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">Meme Gallery</h1>
-
+  <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0" style="color: #7B89AA;">Meme gallery <span><a href="{% url 'images:create' %}" style="color: #7B89AA;"><i class="fas fa-trophy float-right"></i></a></span></h2>
   <hr class="mt-2 mb-5">
   <div class="row" id="image-list">
     {% include "images/image/list_ajax.html" %}

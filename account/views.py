@@ -14,9 +14,6 @@ from actions.utils import create_action
 from actions.models import Action
 
 
-# Create your views here.
-
-
 # def user_login(request):
 #     if request.method == 'POST':
 #         form = LoginForm(request.POST)
@@ -36,6 +33,7 @@ from actions.models import Action
 #     else:
 #         form = LoginForm()
 #     return render(request, 'account/login.html', {'form': form})
+
 
 @login_required
 def dashboard(request):

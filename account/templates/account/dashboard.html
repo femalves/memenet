@@ -4,14 +4,29 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard. You can edit your profile
-    <a href="{% url 'edit'%}">here</a> and change your password
-    <a href="{% url 'password_change'%}">here</a>.
 
+    <div class="jumbotron" style="background-color: #fff; color: #C60056;">
+    <h1 class="display-4">Dashboard</h1>
+    <p class="lead">Welcome to your dashboard. You can edit your profile
+    <a href="{% url 'edit' %}" style="color: #28A745;">here</a> and change your password
+    <a href="{% url 'password_change' %}" style="color: #28A745;">here</a>.</p>
+    <hr class="my-4">
     {% with total_images_created=request.user.images_created.count %}
-        <p>Welcome to your dashboard. You have pinned {{ total_images_created }} image{{total_images_created|pluralize}}.</p>
 
-        <p>Drag the following button to your bookmarks toolbar to pin images from other websites -> <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="btn btn-success"><i class="fas fa-thumbtack"></i> Pin</a></p>
+        <p>Drag the following button to your bookmarks toolbar to pin images from other websites -> <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="btn btn-outline-success btn-md"><i class="fas fa-thumbtack"></i>  Pin</a></p>
+
+        <p>You have pinned {{ total_images_created }} image{{total_images_created|pluralize}}.</p>
     {% endwith %}
+    </div>
+
+
+    <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0" style="color: #7B89AA;">Feed</h2>
+    <hr class="mt-2 mb-5">
+    <div id="action-list" style="margin: 3em;">
+        {% for action in actions %}
+            {% include "actions/action/detail.html" %}
+        {% empty %}
+            <p style="color: #7B89AA;">So empty.</p>
+        {% endfor %}
+    </div>
 {% endblock content %}

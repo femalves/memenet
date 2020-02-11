@@ -1,0 +1,44 @@
+{% load thumbnail %}
+
+{% with user=action.user profile=action.user.profile %}
+<ul class="list-group col-md-8 mx-auto" style="margin-bottom: 1.2em; border: 1px solid #28A745;">
+  <li class="list-group-item border-0 offset-1" style="padding-top: 1em; margin-botton: 0.3em;">
+    <span class="images">
+      {% if profile.photo %}
+        {% thumbnail user.profile.photo "80x80" crop="100%" as im %}
+          <a href="{{ user.get_absolute_url }}">
+            <img src="{{ im.url }}" alt="{{ user.get_full_name }}" class="rounded-circle">
+          </a>
+        {% endthumbnail %}
+      {% endif %}
+      {% if action.target %}
+        {% with target=action.target %}
+          {% if target.image %}
+            {% thumbnail target.image "80x80" crop="100%" as im %}
+              <a href="{{ target.get_absolute_url }}">
+                <img src="{{ im.url }}" class="rounded-circle">
+              </a>
+            {% endthumbnail %}
+          {% endif %}
+        {% endwith %}
+      {% endif %}
+    </span>
+    <span style="font-size: 0.9em; color: #7B89AA; margin: 0.3em;">
+      <a href="{{ user.get_absolute_url }}" style="color: #28A745;">
+        {{ user.first_name }}
+      </a>
+      {{ action.verb }}
+      {% if action.target %}
+        {% with target=action.target %}
+          <a href="{{ target.get_absolute_url }}" style="color: #28A745;">{{ target }}.</a>
+        {% endwith %}
+      {% endif %}
+    </span>
+    <span style="font-size: 0.9em; color: #7B89AA">
+    {% if action.created %}
+      <p class="date small">{{ action.created|timesince }} ago</p>
+    {% endif %}
+    </span>
+  </li>
+</ul>
+{% endwith %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Images ranking{% endblock %}
+
+{% block content %}
+  <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0" style="color: #7B89AA;">Ranking</h2>
+    <hr class="mt-2 mb-5">
+  <ol class="list-group">
+    {% for image in most_viewed %}
+
+      <li class="list-group-item text-success">
+        <a href="{{ image.get_absolute_url }}" class="text-success">
+          {{ image.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ol>
+{% endblock %}

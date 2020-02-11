@@ -9,23 +9,27 @@
 
     <div class="row align-items-center">
         <div class="col">
-            <h1>Login</h1>
+            <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0" style="color: #7B89AA;">Login</h2>
+            <hr class="mt-2 mb-5">
             {% if form.errors %}
                 <p class="alert alert-danger alert-dismissible fade show" role="alert">Your username and password didn't match. Please try again. </p>
             {% endif %}
 
+            <div class="col-md-6 mx-auto">
+                <form action="{% url 'login' %}" method="post">
+                    {{form.username|as_crispy_field}}
+                    {{form.password|as_crispy_field}}
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <p><input type="submit" class="btn btn-success btn-block" value="Login"></p>
 
-            <form action="{% url 'login' %}" method="post">
-                {{form.username|as_crispy_field}}
-                {{form.password|as_crispy_field}}
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ next }}"/>
-                <p><input type="submit" class="btn btn-success btn-block" value="Login"></p>
+                    <p class="btn btn-danger btn-block"><a class="text-white" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a></p>
 
-                <p class="btn btn-danger btn-block"><a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a></p>
-                <p><a href="{% url "password_reset" %}">Forgot password?</a></p>
-                <p><a href="{% url "register" %}">Create account</a></p>
-            </form>
+                    <span><a class="text-success" href="{% url "password_reset" %}">Forgot password?</a></span><br>
+                    <span><a class="text-success" href="{% url "register" %}">Create account</a></span>
+
+                </form>
+            </div>
         </div>
 
     </div>

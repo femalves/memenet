@@ -1,5 +1,5 @@
-{% load staticfiles %}
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,46 +9,53 @@
     {% endblock title %} </title>
     <link rel="stylesheet" href="{% static "css/base.css" %}">
     <!-- Bootstrap -->
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400&display=swap" rel="stylesheet">
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/00b96653bc.js" crossorigin="anonymous"></script>
 
 
 </head>
-<body>
+<body style="font-family: 'Poppins', sans-serif;">
 <div id="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-success">
-            <a class="navbar-brand text-light" href="#"><i class="fas fa-thumbtack"></i></a>
-            {% if request.user.is_authenticated %}
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li {% if section == 'dashboard' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-                        </li>
-                        <li {% if section == 'images' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                            <a class="nav-link" href="{% url 'images:list' %}">Memes</a>
-                        </li>
-                        <li {% if section == 'people' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                            <a class="nav-link" href="{% url 'user_list' %}">People</a>
-                        </li>
-                        <span class="navbar-text">
-                            Hello, {{ request.user.username}}!
-                        </span>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url "logout" %}">Logout</a>
-                        </li>
 
-                    </ul>
-                </div>
-            {% else %}
-                <ul class="navbar-nav mr-auto mr-sm-2">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+    <nav class="navbar navbar-expand-lg" style="background-color: #C60056;">
+        <a class="navbar-brand text-light" href="#"><i class="fas fa-thumbtack"></i></a>
+        <button class="navbar-toggler text-light" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+        </button>
+        {% if request.user.is_authenticated %}
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                <li {% if section == 'dashboard' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link text-light" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                <li {% if section == 'images' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link text-light" href="{% url 'images:list' %}">Memes</a>
+                </li>
+                <li {% if section == 'people' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link text-light" href="{% url 'user_list' %}">People</a>
+                </li>
+
                 </ul>
-
-            {% endif %}
-        </nav>
+                <ul class="navbar-nav">
+                    <span class="navbar-text text-light">
+                        Hello, {{ request.user.username}}!
+                    </span>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        {% else %}
+            <ul class="navbar-nav">
+                <li {% if section == 'dashboard' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link text-light" href="{% url "login" %}">Login</a>
+                </li>
+            </ul>
+        {% endif %}
+    </nav>
 </div>
 
 <div class="container mt-4">
@@ -73,6 +80,7 @@
     {% endif %}
 
     {% block content %}
+
     {% endblock content %}
 
 </div>

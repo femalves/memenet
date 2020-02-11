@@ -4,41 +4,54 @@
 
 {% block content %}
 
- <div class="card mx-auto" style="width: 20rem;">
+ <div class="card col-md-6 mx-auto" style="margin: 4em;">
   {% thumbnail image.image "300" as im %}
     <a href="{{ image.image.url }}">
       <img src="{{ im.url }}" class="card-img-top">
     </a>
   {% endthumbnail %}
   <div class="card-body">
-    <h5 class="card-title">{{ image.title }}</h5>
+    <h5 class="card-title" style="font-weight: bold;">{{ image.title }}</h5>
     <p class="card-text">{{ image.description|linebreaks }}</p>
     {% with total_likes=image.users_like.count users_like=image.users_like.all %}
-    <div class="image-info">
-      <div>
-        <span class="btn btn-outline-secondary count">
-         <span class="total">{{ total_likes }}</span>
-         like{{ total_likes|pluralize }}
-        </span>
-        <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="btn btn-success like button">
-          {% if request.user not in users_like %}
-            Like
-          {% else %}
-            Unlike
-          {% endif %}
-        </a>
+      <div class="image-info">
+        <div>
+
+            <span class="btn btn-outline-secondary views" style="font-size: 0.8em;">
+            {{ total_views }} view{{ total_views|pluralize }}
+            </span>
+            <span class="btn btn-outline-secondary count" style="font-size: 0.8em;">
+            <span class="total">{{ total_likes }}</span>
+            like{{ total_likes|pluralize }}
+            </span>
+          <span class="float-right">
+            <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="btn btn-outline-success like button" style="font-size: 0.8em;">
+              {% if request.user not in users_like %}
+                Like
+              {% else %}
+                Unlike
+              {% endif %}
+            </a>
+          </span>
+        </div>
       </div>
-    </div>
-    <div class="image-likes">
+    {% endwith %}
+
+
+  </div>
+  <div class="image-likes">
       {% for user in image.users_like.all %}
         <ul class="list-group list-group-flush">
             <li class="list-group-item text-secondary">
-            <img src="{{ user.profile.photo.url }}"> <span>{{ user.first_name }} likes this meme.</span></li>
+            <span>
+            <a href="{{ user.get_absolute_url}}">
+            {% thumbnail user.profile.photo "40x40" crop="100%" as im %}
+            <img src="{{ im.url }}" class="rounded-circle">
+            {% endthumbnail %}
+          </a></span><span>{{ user.first_name }} likes this meme.</span></li>
         </ul>
       {% endfor %}
     </div>
-  {% endwith %}
-  </div>
 </div>
   <h1></h1>
 
