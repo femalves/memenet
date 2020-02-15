@@ -4,9 +4,6 @@
 
   <div class="col-6 col-md-4 col-lg-4 mb-4">
     <div class="card mx-auto text-center">
-        {% comment %} <div class="card-body text-white bg-dark">
-          <p class="card-title "><a href="{{ image.get_absolute_url }}">{{ image.title|truncatechars:25 }}</a></p>
-        </div> {% endcomment %}
         <a href="{{ image.get_absolute_url }}">
             {% thumbnail image.image "300x300" crop="100%" as im %}
                 <a href="{{ image.get_absolute_url }}">
