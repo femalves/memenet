@@ -5,7 +5,7 @@
 
 {% block content %}
 
-    <div class="jumbotron" style="background-color: #fff; color: #C60056;">
+    <div class="jumbotron" style="background-color: #C60056; color: #fff;">
     <h1 class="display-4">Dashboard</h1>
     <p class="lead">Welcome to your dashboard. You can edit your profile
     <a href="{% url 'edit' %}" style="color: #28A745;">here</a> and change your password
@@ -13,7 +13,7 @@
     <hr class="my-4">
     {% with total_images_created=request.user.images_created.count %}
 
-        <p>Drag the following button to your bookmarks toolbar to pin images from other websites -> <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="btn btn-outline-success btn-md"><i class="fas fa-thumbtack"></i>  Pin</a></p>
+        <p>Drag the following button to your bookmarks toolbar to pin images from other websites -> <a href="javascript:{% include "bookmarklet_launcher.js" %}" class="btn btn-success btn-md text-light"><i class="fas fa-thumbtack"></i>  Pin</a></p>
 
         <p>You have pinned {{ total_images_created }} image{{total_images_created|pluralize}}.</p>
     {% endwith %}
