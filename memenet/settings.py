@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import dj_database_url
+from urllib.parse import urlparse
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -104,9 +105,23 @@ DATABASES = {
     }
 }
 
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
+redis_url = urlparse.urlparse(os.environ.get(
+    'REDISTOGO_URL', 'redis://localhost:6959'))
+
+REDIS_HOST = redis_url.hostname
+REDIS_PORT = redis_url.port
 REDIS_DB = 0
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'redis_cache.RedisCache',
+#         'LOCATION': '%s:%s' % (redis_url.hostname, redis_url.port),
+#         'OPTIONS': {
+#             'DB': 0,
+#             'PASSWORD': redis_url.password,
+#         }
+#     }
+# }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
