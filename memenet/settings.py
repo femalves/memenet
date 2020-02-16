@@ -110,6 +110,7 @@ redis_url = urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))
 REDIS_HOST = redis_url.hostname
 REDIS_PORT = redis_url.port
 REDIS_DB = 0
+PASSWORD: redis_url.password
 
 # CACHES = {
 #     'default': {
