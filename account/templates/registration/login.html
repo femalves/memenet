@@ -23,7 +23,7 @@
                     <input type="hidden" name="next" value="{{ next }}"/>
                     <p><input type="submit" class="btn btn-success btn-block" value="Login"></p>
 
-                    <p class="btn btn-danger btn-block"><a class="text-white" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a></p>
+                    {% comment %} <p class="btn btn-danger btn-block"><a class="text-white" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a></p> {% endcomment %}
 
                     <span><a class="text-success" href="{% url "password_reset" %}">Forgot password?</a></span><br>
                     <span><a class="text-success" href="{% url "register" %}">Create account</a></span>
