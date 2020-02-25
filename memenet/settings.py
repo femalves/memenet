@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get(
     'SECRET_KEY', 'yedg4s+j8g7oj)g0+1%%id-5+ql%k6v%a)eb05c@axlzbs+w9_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 THUMBNAIL_DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1',
@@ -184,29 +184,47 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # AWS S3
 
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = 'us-east-2'  # e.g. us-east-2
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_HEADERS = {'Cache-Control': 'max-age=86400', }
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
 
-if not DEBUG:
-    MEDIAFILES_LOCATION = 'media'
-    STATICFILES_LOCATION = 'static'
+# Tell django-storages the domain to use to refer to static files.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-    STATICFILES_STORAGE = 'memenet.s3utils.StaticStorage'
-    DEFAULT_FILE_STORAGE = 'memenet.s3utils.MediaStorage'
+# Tell the staticfiles app to use S3Boto3 storage when writing the collected static files (when
+# you run `collectstatic`).
+STATICFILES_LOCATION = 'static'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+MEDIAFILES_LOCATION = 'media'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
-    AWS_HEADERS = {'Cache-Control': 'max-age=86400', }
 
-    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# if not DEBUG:
+#     MEDIAFILES_LOCATION = 'media'
+#     STATICFILES_LOCATION = 'static'
 
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = None
-else:
-    STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#     STATICFILES_STORAGE = 's3utils.StaticStorage'
+#     DEFAULT_FILE_STORAGE = 's3utils.MediaStorage'
 
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+#     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+#     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+
+
+#     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+
+# else:
