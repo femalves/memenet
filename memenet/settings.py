@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get(
     'SECRET_KEY', 'yedg4s+j8g7oj)g0+1%%id-5+ql%k6v%a)eb05c@axlzbs+w9_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = False
 THUMBNAIL_DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1',
@@ -209,4 +209,4 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
