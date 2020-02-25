@@ -193,7 +193,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # AWS S3
 
-
 AWS_S3_HOST = 's3.us-east-2.amazonaws.com'
 
 AWS_LOCATION = 'static'
