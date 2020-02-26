@@ -12,14 +12,14 @@
 <div class="row">
     {% for user in users %}
         {% if user.profile %}
-            <div class="card col-lg-2 col-md-4 col-lg-2" style="border: 0px;">
+            <div class="card col-lg-3 col-md-3 col-xm-6" style="border: 0px;">
                 <a href="{{user.get_absolute_url }}">
-                    {% thumbnail user.profile.photo "100x100" crop="100%" as im %}
+                    {% thumbnail user.profile.photo "600x600" crop="100%" as im %}
                     <img src="{{ im.url }}" class="card-img-top rounded-circle" alt="Card image cap">
                     {% endthumbnail %}
                 </a>
                 <div class="card-body">
-                    <h5 class="card-title text-center"><a href="{{user.get_absolute_url }}" style="text-decoration: none; color: #28A745;">{{ user.get_full_name }}</a></h5>
+                    <h5 class="card-title text-center"><a href="{{user.get_absolute_url }}" style="text-decoration: none; color: #28A745; font-size: 0.7em;">{{ user.username }}</a></h5>
                 </div>
             </div>
         {% endif %}

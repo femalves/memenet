@@ -21,12 +21,12 @@
     <div class="profile-info col-md-3">
       <div class="card" style="width: 10rem; border: 0px;">
         <a href="{{user.get_absolute_url }}">
-        {% thumbnail user.profile.photo "80x80" crop="100%" as im %}
+        {% thumbnail user.profile.photo "600x600" crop="100%" as im %}
         <img src="{{ im.url }}" class="card-img-top rounded-circle" alt="Card image cap">
         {% endthumbnail %}
         </a>
         <div class="card-body">
-            <h5 class="card-title text-center"><a href="{{user.get_absolute_url }}" style="text-decoration: none; color: #28A745;">{{ user.get_full_name }}</a></h5>
+            <h5 class="card-title text-center"><a href="{{user.get_absolute_url }}" style="text-decoration: none; color: #28A745; font-size: 0.7em;">{{ user.username }}</a></h5>
             <span>
               <a href="#" data-id="{{ user.id }}" data-action="{% if request.user in user.followers.all %}un{% endif %}follow" class="follow btn btn-outline-success btn-sm btn-block float-right">
                 {% if request.user not in user.followers.all %}

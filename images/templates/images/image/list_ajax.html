@@ -5,7 +5,7 @@
   <div class="col-6 col-md-4 col-lg-4 mb-4">
     <div class="card mx-auto text-center">
         <a href="{{ image.get_absolute_url }}">
-            {% thumbnail image.image "300x300" crop="100%" as im %}
+            {% thumbnail image.image "600x600" crop="100%" as im %}
                 <a href="{{ image.get_absolute_url }}">
                     <img class="card-img-bottom" src="{{ im.url }}" alt="{{im.title}}" style="padding: 3px;">
                 </a>
