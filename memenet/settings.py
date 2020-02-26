@@ -177,16 +177,16 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # # AWS S3
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 AWS_S3_HOST = 's3.us-east-2.amazonaws.com'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
