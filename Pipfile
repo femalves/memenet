@@ -31,7 +31,7 @@ Pillow = "==5.1.0"
 PyJWT = "==1.7.1"
 django-storages = "*"
 boto3 = "*"
-boto = "*"
+
 
 [requires]
 python_version = "3.6"
